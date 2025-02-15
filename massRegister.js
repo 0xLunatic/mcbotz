@@ -132,7 +132,7 @@ function createBotInstance(account, proxy, retries = 0) {
               setTimeout(() => {
                 bot.setControlState("jump", false); // Stop jumping after a short delay
               }, 500);
-            }, 1000);
+            }, 15000);
           }, 10000);
         }, 8000);
       }, 8000);
