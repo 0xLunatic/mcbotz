@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "mineflayer": "^4.26.0",
+    "mineflayer-collectblock": "^1.6.0",
+    "mineflayer-pathfinder": "^2.4.5",
+    "prismarine-viewer": "^1.30.0",
+    "prismarine-windows": "^2.9.0",
+    "proxy-agent": "^6.5.0",
+    "random-username-generator": "^1.0.4",
+    "random-words": "^2.0.1",
+    "socks5-client": "^1.2.8"
+  }
+}
