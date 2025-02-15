@@ -120,11 +120,11 @@ function createBotInstance(account, proxy, retries = 0) {
           }
           bot.chat("/warp afk");
           setTimeout(() => {
-            //moveRandomly();
+            moveRandomly();
             setTimeout(() => {
               bot.chat("/sit");
             }, 6000);
-          }, 1000);
+          }, 6000);
 
           setInterval(() => {
             bot.chat("/points pay 0xLunatic 1");
