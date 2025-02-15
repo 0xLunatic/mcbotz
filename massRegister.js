@@ -63,7 +63,6 @@ function createBotInstance(account, proxy, retries = 0) {
     username: account.username,
     skipValidation: true,
     version: "1.18.1",
-    keepAlive: true,
   };
 
   if (USE_PROXY && proxy) {
@@ -240,7 +239,7 @@ accounts.forEach((account, index) => {
     if (index < proxies.length) {
       setTimeout(() => {
         createBotInstance(account, proxies[index]);
-      }, 3000);
+      }, 1000);
     } else {
       console.log(`[ERROR] Not enough proxies available for all accounts.`);
     }
