@@ -36,13 +36,13 @@ if (USE_PROXY) {
 }
 let proxyIndex = 0;
 
-const maxAccounts = 50; // Set the maximum number of accounts
+const maxAccounts = 350; // Set the maximum number of accounts
 const accounts = generateAccounts(maxAccounts);
 
 function generateAccounts(max) {
   const generatedAccounts = [];
   for (let i = 0; i < max; i++) {
-    let username = generateCustomUsername(16); // Generate a custom username with max length 16
+    let username = generateCustomUsername(6); // Generate a custom username with max length 16
     generatedAccounts.push({ username });
   }
   return generatedAccounts;
