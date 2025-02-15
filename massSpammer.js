@@ -116,7 +116,7 @@ function createBotInstance(account, proxy, retries = 0) {
           }
           setInterval(() => {
             bot.chat(generateRandomSpam());
-          }, 1000); // Spams every 10ms (you can adjust this delay)
+          }, 4000); // Spams every 10ms (you can adjust this delay)
         }, 8000);
       }, 8000);
     }, 1000);
