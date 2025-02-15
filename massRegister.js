@@ -7,7 +7,7 @@ const randomUsernameGenerator = require("random-username-generator");
 function generateCustomUsername(length) {
   const randomUsername = require("random-username-generator").generate(); // Use the random generator
   const modifiedUsername = randomUsername
-    .replace(/-/g, "_") // Replace all '-' with '_'
+    .replace(/-/g, "") // Replace all '-' with '_'
     .toLowerCase() // Convert all characters to lowercase first
     .split("_") // Split the string at '_'
     .map((part, index) => {
