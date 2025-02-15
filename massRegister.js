@@ -98,6 +98,9 @@ function createBotInstance(account, proxy, retries = 0) {
 
   bot.on("death", () => {
     bot.emit("spawn"); // Force the bot to respawn
+    setTimeout(() => {
+      bot.chat("/warp afk");
+    }, 15000);
   });
 
   bot.once("spawn", () => {
@@ -117,7 +120,7 @@ function createBotInstance(account, proxy, retries = 0) {
           }
           bot.chat("/warp afk");
           setTimeout(() => {
-            moveRandomly();
+            //moveRandomly();
             setTimeout(() => {
               bot.chat("/sit");
             }, 6000);
