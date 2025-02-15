@@ -38,7 +38,7 @@ const accounts = generateAccounts(maxAccounts);
 function generateAccounts(max) {
   const generatedAccounts = [];
   for (let i = 0; i < max; i++) {
-    let username = generateCustomUsername(6); // Generate a custom username with max length 16
+    let username = generateCustomUsername(15); // Generate a custom username with max length 16
     generatedAccounts.push({ username });
   }
   return generatedAccounts;
@@ -121,66 +121,68 @@ function createBotInstance(account, proxy, retries = 0) {
       bot.lookAt(bot.entity.position.offset(randomYaw, randomPitch, 0), false);
     }, Math.random() * 4000 + 1000); // Random turn every 1 to 5 seconds
   }
-}
 
-bot.on("message", (message) => {
-  const msg = message.toString();
-  bot.chat(msg);
-  if (msg.includes("/register")) {
-    setTimeout(() => {
-      bot.chat("/register lolo123 lolo123");
-      console.log(`[INFO] ${account.username} executed /register`);
-    }, 1000);
-  }
-  if (msg.includes("/login")) {
-    setTimeout(() => {
-      bot.chat("/login lolo123");
-      console.log(`[INFO] ${account.username} executed /login`);
-    }, 1000);
-  }
-});
-
-bot.on("error", (err) => {
-  console.log(`[ERROR] ${account.username} failed: ${err.message}`);
-  bot.end();
-  handleReconnect(account, proxy, retries);
-});
-
-bot.on("end", () => {
-  handleReconnect(account, proxy, retries);
-});
-
-function handleReconnect(account, proxy, retries) {
-  if (retries >= maxRetries) {
-    console.log(
-      `[ERROR] ${account.username} exceeded max retries. ${
-        USE_PROXY ? "Switching proxy..." : "Stopping bot."
-      }`
-    );
-    if (USE_PROXY) {
-      switchProxy(account);
+  bot.on("message", (message) => {
+    const msg = message.toString();
+    bot.chat(msg);
+    if (msg.includes("/register")) {
+      setTimeout(() => {
+        bot.chat("/register lolo123 lolo123");
+        console.log(`[INFO] ${account.username} executed /register`);
+      }, 1000);
     }
-  } else {
-    console.log(
-      `[INFO] Retrying ${account.username} in ${retryDelays / 1000} seconds...`
-    );
-    setTimeout(
-      () => createBotInstance(account, proxy, retries + 1),
-      retryDelays
-    );
-  }
-}
+    if (msg.includes("/login")) {
+      setTimeout(() => {
+        bot.chat("/login lolo123");
+        console.log(`[INFO] ${account.username} executed /login`);
+      }, 1000);
+    }
+  });
 
-function switchProxy(account) {
-  proxyIndex++;
-  if (proxyIndex >= proxies.length) {
-    proxyIndex = 0;
-    return;
+  bot.on("error", (err) => {
+    console.log(`[ERROR] ${account.username} failed: ${err.message}`);
+    bot.end();
+    handleReconnect(account, proxy, retries);
+  });
+
+  bot.on("end", () => {
+    handleReconnect(account, proxy, retries);
+  });
+
+  function handleReconnect(account, proxy, retries) {
+    if (retries >= maxRetries) {
+      console.log(
+        `[ERROR] ${account.username} exceeded max retries. ${
+          USE_PROXY ? "Switching proxy..." : "Stopping bot."
+        }`
+      );
+      if (USE_PROXY) {
+        switchProxy(account);
+      }
+    } else {
+      console.log(
+        `[INFO] Retrying ${account.username} in ${
+          retryDelays / 1000
+        } seconds...`
+      );
+      setTimeout(
+        () => createBotInstance(account, proxy, retries + 1),
+        retryDelays
+      );
+    }
   }
-  console.log(
-    `[INFO] Switching proxy to ${proxies[proxyIndex]} for ${account.username}`
-  );
-  createBotInstance(account, proxies[proxyIndex]);
+
+  function switchProxy(account) {
+    proxyIndex++;
+    if (proxyIndex >= proxies.length) {
+      proxyIndex = 0;
+      return;
+    }
+    console.log(
+      `[INFO] Switching proxy to ${proxies[proxyIndex]} for ${account.username}`
+    );
+    createBotInstance(account, proxies[proxyIndex]);
+  }
 }
 
 // Start bots using proxies if enabled, otherwise connect normally
