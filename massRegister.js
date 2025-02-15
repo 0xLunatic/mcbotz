@@ -222,7 +222,7 @@ function handleReconnect(account, proxy, retries) {
 function switchProxy(account) {
   proxyIndex++;
   if (proxyIndex >= proxies.length) {
-    console.log("[ERROR] No working proxies left.");
+    proxyIndex = 0;
     return;
   }
   console.log(
